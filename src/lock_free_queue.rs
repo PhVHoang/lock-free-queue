@@ -11,7 +11,7 @@ struct Node<T> {
 
 
 /// LockFreeQueue is an implementation of Micheal-Scott Queue
-pub struct LockFreeQueue<T> {
+pub(crate) struct LockFreeQueue<T> {
     head: AtomicPtr<Node<T>>,
     tail: AtomicPtr<Node<T>>
 }
@@ -136,9 +136,9 @@ impl<T> Drop for LockFreeQueue<T> {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
     use std::sync::Arc;
     use std::thread;
-    use super::*;
     #[test]
     fn test_single_thread_operations() {
         let queue = LockFreeQueue::<i32>::new();
